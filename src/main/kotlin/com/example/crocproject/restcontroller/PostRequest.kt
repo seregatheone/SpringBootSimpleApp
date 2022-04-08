@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile
 class RestFileController{
     @PostMapping("/uploadFile/auction")
     fun uploadFileAuction(@RequestParam("file") multipartFile: MultipartFile):List<JSONFrontendResponse>{
-//        when(multipartFile)
         val dataController = DataController(multipartFile)
         dataController.auctionAnalytics()
         return dataController.resultList

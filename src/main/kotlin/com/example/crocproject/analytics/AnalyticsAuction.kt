@@ -3,7 +3,9 @@ package com.example.crocproject.analytics
 import com.beust.klaxon.Klaxon
 import com.example.crocproject.data.EmployeeModel
 import com.example.crocproject.data.network.JSONFrontendResponse
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import krangl.*
 import kotlin.math.abs
 
@@ -44,22 +46,15 @@ class AnalyticsAuction {
 
     @Suppress("UNCHECKED_CAST")
     fun reformatToListResponse(): List<JSONFrontendResponse> {
-        val outputMapper = GsonBuilder().setPrettyPrinting().create()
         val outputDataFrameIterator = dataFrame.rows.iterator()
         val listOfResponses: MutableList<JSONFrontendResponse?> = mutableListOf()
         while (outputDataFrameIterator.hasNext()) {
-            val mapOfData = outputDataFrameIterator.next().toMutableMap()
-            mapOfData["bobrDistribution"] = listOf(mapOfData["bobrDistribution"])
-            val bobrDistribution =
-                outputDataFrameIterator.next().toMap()["bobrDistribution"]
-                    .toString()
-                    .dropLast(1)
-                    .drop(1)
-                    .split(",")
-                    .map { it.toInt() }
+            val mapOfData = outputDataFrameIterator.next().toMap()
+            val sType = object : TypeToken<List<Int>>() { }.type
+            println()
             val jSONFrontendResponse = JSONFrontendResponse(
                 id = mapOfData["id"].toString().toInt(),
-                bobrDistribution = bobrDistribution,
+                bobrDistribution = Gson().fromJson(mapOfData["bobrDistribution"].toString(),sType),
                 departmentName = mapOfData["departmentName"].toString(),
                 giniCoefficient = mapOfData["giniCoefficient"].toString(),
                 maximumBalance = mapOfData["maximumBalance"].toString(),
