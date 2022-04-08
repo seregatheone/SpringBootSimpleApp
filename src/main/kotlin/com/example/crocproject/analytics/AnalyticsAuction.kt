@@ -51,10 +51,10 @@ class AnalyticsAuction {
         while (outputDataFrameIterator.hasNext()) {
             val mapOfData = outputDataFrameIterator.next().toMap()
             val sType = object : TypeToken<List<Int>>() { }.type
-            println()
+            val bobrDistribution : List<Int> = Gson().fromJson(mapOfData["bobrDistribution"].toString(),sType)
             val jSONFrontendResponse = JSONFrontendResponse(
                 id = mapOfData["id"].toString().toInt(),
-                bobrDistribution = Gson().fromJson(mapOfData["bobrDistribution"].toString(),sType),
+                bobrDistribution = bobrDistribution.sorted(),
                 departmentName = mapOfData["departmentName"].toString(),
                 giniCoefficient = mapOfData["giniCoefficient"].toString(),
                 maximumBalance = mapOfData["maximumBalance"].toString(),
