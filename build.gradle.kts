@@ -23,7 +23,7 @@ dependencies {
 
     implementation("com.github.holgerbrandl:krangl:0.17.3")
 
-    implementation ("com.beust:klaxon:5.6")
+    implementation("org.apache.httpcomponents:httpclient:4.5.13")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
