@@ -2,13 +2,9 @@ package com.example.crocproject.data
 
 import com.example.crocproject.analytics.AnalyticsAuction
 import com.example.crocproject.data.network.JSONFrontendResponse
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
-import krangl.DataFrame
 import org.springframework.web.multipart.MultipartFile
 
-class DataController(private val multipartFile : MultipartFile) {
+class DataManagement(private val multipartFile : MultipartFile) {
     private val fileObserver = ExcelFileParser(multipartFile)
     private val listOfEmployers by lazy{ fileObserver.parseExcelFileWithPIO()}
 

@@ -1,3 +1,11 @@
 # SpringBootSimpleApp
 
-## Файл приходит в restcontroller в постмаппинг. В нём создаётся контроллер данных, который будет держать информацию о том, что происходит с ней и будет давать задания по её изменению. (датаконтроллер находитяся в папке data). При создании датаконтроллера таблица эксель парсится и становится списком из сотрудников. В датаконтроллере находится функция auctionAnalytics, которая запускает всю работу с аналитикой. В папке аналитика будут файлы с разными аналитиками(аукцион, колесо фортуны и др.). После аналитики датаконтроллер возвращает данные из аналитики и отправляет пользователю 
+Excel file goes to RestFile controller, which creates DataManagement class. Data routes and data states are 
+controlled by DataManagement class. Analytics class is created after file has been parsed. 
+Before deploying clone this repository or make sure that it is last version. For deploying you need run `build` 
+and `bootRun` commands:
+
+```
+./gradlew build
+./gradlew bootRun
+```

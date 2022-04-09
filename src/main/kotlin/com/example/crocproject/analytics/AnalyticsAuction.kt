@@ -35,7 +35,7 @@ class AnalyticsAuction {
             .remove("userDepartment")
     }
 
-    fun gini(values: List<Double>): Double {
+    private fun gini(values: List<Double>): Double {
         val sumOfDifference = values.stream()
             .flatMapToDouble { v1: Double ->
                 values.stream().mapToDouble { v2: Double -> abs(v1 - v2) }
@@ -56,13 +56,13 @@ class AnalyticsAuction {
                 id = mapOfData["id"].toString().toInt(),
                 bobrDistribution = bobrDistribution.sorted(),
                 departmentName = mapOfData["departmentName"].toString(),
-                giniCoefficient = mapOfData["giniCoefficient"].toString(),
+                giniCoefficient = "%4.2f".format(mapOfData["giniCoefficient"].toString().toDouble() ),
                 maximumBalance = mapOfData["maximumBalance"].toString(),
                 minimumBalance = mapOfData["minimumBalance"].toString(),
                 numberOfStaff = mapOfData["numberOfStaff"].toString()
             )
             listOfResponses.add(jSONFrontendResponse)
         }
-        return listOfResponses as List<JSONFrontendResponse>
+        return listOfResponses.sortedBy { it!!.giniCoefficient }.reversed() as List<JSONFrontendResponse>
     }
 }

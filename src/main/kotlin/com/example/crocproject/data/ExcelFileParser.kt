@@ -5,14 +5,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.web.multipart.MultipartFile
 
 
-//EmployeeModel(                          columnId
-//  private val id : Int,                | 0
-//  private val userCrocCode:String,     | 1
-//  private val userDepartment : String, | 6
-//  private val isArchive : Boolean,     | 10
-//  private val availableBalance : Int)  | 13
-private const val FILE_NAME = "src/main/resources/fileToCreate.txt"
 class ExcelFileParser(private val multipartFile : MultipartFile) {
+
+    private val mapWithIndexes = mapOf(
+        "id" to 0,
+        "userCrocCode" to 1,
+        "userDepartment" to 6,
+        "isArchive" to 10,
+        "availableBalance" to 13
+    )
 
     //excel start
     private val workBook = XSSFWorkbook(multipartFile.inputStream)
@@ -33,16 +34,16 @@ class ExcelFileParser(private val multipartFile : MultipartFile) {
                 val cell = cellIterator.next()
 
                 when(cell.columnIndex){
-                    0 -> try {
+                    mapWithIndexes["id"] -> try {
                         id = cell.numericCellValue.toInt()
                     }catch (e : Exception){
                         print("wtf0")
                         println(e.stackTrace)
                         break
                     }
-                    1 -> userCrocCode = cell.stringCellValue
-                    6 -> userDepartment = cell.stringCellValue
-                    10 -> {
+                    mapWithIndexes["userCrocCode"] -> userCrocCode = cell.stringCellValue
+                    mapWithIndexes["userDepartment"] -> userDepartment = cell.stringCellValue
+                    mapWithIndexes["isArchive"] -> {
                         try {
                             isArchive = when (cell.toString()) {
                                 "FALSE" -> false
@@ -57,7 +58,7 @@ class ExcelFileParser(private val multipartFile : MultipartFile) {
                             break
                         }
                     }
-                    13 -> try {
+                    mapWithIndexes["availableBalance"] -> try {
                         availableBalance = cell.numericCellValue.toInt()
                     }catch (e : Exception){
                         println(e.stackTrace)
