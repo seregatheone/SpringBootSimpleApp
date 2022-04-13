@@ -1,9 +1,7 @@
 package com.example.crocproject.restcontroller
 
 import com.example.crocproject.data.DataManagement
-import com.example.crocproject.data.models.DepartmentModel
-import com.example.crocproject.data.models.MissionModel
-import com.example.crocproject.data.models.PurchaseModel
+import com.example.crocproject.data.models.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
@@ -11,22 +9,22 @@ import org.springframework.web.multipart.MultipartFile
 @RestController
 class RestFileController{
 
-    @PostMapping("/uploadFile/auction")
+    @PostMapping("/uploadFile/departments")
     fun uploadFileAuction(@RequestParam("file") multipartFile: MultipartFile):List<DepartmentModel>{
         val dataManagement = DataManagement(multipartFile)
         dataManagement.auctionAnalytics()
         return dataManagement.departmentModelList
     }
     @PostMapping("/uploadFile/missions")
-    fun uploadFileMissions(@RequestParam("file") multipartFile: MultipartFile):List<MissionModel>{
+    fun uploadFileMissions(@RequestParam("file") multipartFile: MultipartFile):List<MissionsModel>{
         val dataManagement = DataManagement(multipartFile)
-//        dataManagement.auctionAnalytics()
+        dataManagement.usersMissions()
         return dataManagement.missionModelList
     }
     @PostMapping("/uploadFile/purchases")
-    fun uploadFilePurchases(@RequestParam("file") multipartFile: MultipartFile):List<PurchaseModel>{
+    fun uploadFilePurchases(@RequestParam("file") multipartFile: MultipartFile):List<PurchasesModel>{
         val dataManagement = DataManagement(multipartFile)
-//        dataManagement.auctionAnalytics()
+        dataManagement.usersPurchases()
         return dataManagement.purchaseModelList
     }
 

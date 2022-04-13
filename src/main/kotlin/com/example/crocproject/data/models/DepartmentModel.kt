@@ -10,3 +10,11 @@ data class DepartmentModel(
     val minimumBalance: String,
     val numberOfStaff: String
 )
+data class UserModel(
+    var availableBalance: Int = 0,
+    var userCrocCode: String = "",
+    var userFirstName: String = "",
+    var userLastName: String = "",
+    var userMiddleName: String = "",
+    var userName: String = ""
+)

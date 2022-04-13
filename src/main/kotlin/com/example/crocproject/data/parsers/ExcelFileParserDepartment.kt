@@ -1,11 +1,12 @@
-package com.example.crocproject.data
+package com.example.crocproject.data.parsers
 
 
+import com.example.crocproject.data.models.EmployeeModel
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.web.multipart.MultipartFile
 
 
-class ExcelFileParser(private val multipartFile : MultipartFile) {
+class ExcelFileParserDepartment(private val multipartFile : MultipartFile) {
 
     private val mapWithIndexes = mapOf(
         "id" to 0,

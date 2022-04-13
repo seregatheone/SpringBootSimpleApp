@@ -1,6 +1,6 @@
-package com.example.crocproject.analytics
+package com.example.crocproject.analytics.auction
 
-import com.example.crocproject.data.EmployeeModel
+import com.example.crocproject.data.models.EmployeeModel
 import com.example.crocproject.data.models.DepartmentModel
 import com.example.crocproject.data.models.UserModel
 import com.google.gson.Gson
@@ -11,20 +11,20 @@ import kotlin.math.abs
 
 class AnalyticsAuction {
 
-    private var _dataFrame: DataFrame? = null
-    private val dataFrame get() = _dataFrame!!
+    private var _dataFrameAuction: DataFrame? = null
+    private val dataFrameAuction get() = _dataFrameAuction!!
 
     fun makeDataframe(list: List<EmployeeModel>) {
-        _dataFrame = list.asDataFrame()
+        _dataFrameAuction = list.asDataFrame()
     }
 
     fun workWithDataframe() {
         var k = 0;
-        _dataFrame = dataFrame
+        _dataFrameAuction = dataFrameAuction
             .filter { it["isArchive"] eq false }
             .groupBy(by = arrayOf("userDepartment"))
-            .summarize(
-                "giniCoefficient" to { gini(it["availableBalance"].toDoubles().toList() as List<Double>).toString() },
+                .summarize(
+                    "giniCoefficient" to { gini(it["availableBalance"].toDoubles().toList() as List<Double>).toString() },
                 "numberOfStaff" to { it["availableBalance"].length.toString() },
                 "maximumBalance" to { it["availableBalance"].max()!!.toInt().toString() },
                 "minimumBalance" to { it["availableBalance"].min()!!.toInt().toString() },
@@ -32,7 +32,7 @@ class AnalyticsAuction {
                 "staff" to { staff ->
                     val listOfUsers = mutableListOf<UserModel>()
 
-                    dataFrame
+                    dataFrameAuction
                         .filter { it["isArchive"] eq false }
                         .filter { it["userDepartment"] eq staff["userDepartment"][0]!! }
                         .remove("userDepartment")
@@ -72,7 +72,7 @@ class AnalyticsAuction {
 
     @Suppress("UNCHECKED_CAST")
     fun reformatToListResponse(): List<DepartmentModel> {
-        val outputDataFrameIterator = dataFrame.rows.iterator()
+        val outputDataFrameIterator = dataFrameAuction.rows.iterator()
         val listOfResponses: MutableList<DepartmentModel?> = mutableListOf()
         while (outputDataFrameIterator.hasNext()) {
             val mapOfData = outputDataFrameIterator.next().toMap()
@@ -80,9 +80,7 @@ class AnalyticsAuction {
             val staffList: List<UserModel> = Gson().fromJson(mapOfData["staff"].toString(), sType)
             val departmentModel = DepartmentModel(
                 id = mapOfData["id"].toString().toInt(),
-                staff = staffList
-//                emptyList()
-                ,
+                staff = staffList,
                 departmentName = mapOfData["departmentName"].toString(),
                 giniCoefficient = "%4.2f".format(mapOfData["giniCoefficient"].toString().toDouble()),
                 maximumBalance = mapOfData["maximumBalance"].toString(),
