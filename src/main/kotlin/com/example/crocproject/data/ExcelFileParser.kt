@@ -10,6 +10,10 @@ class ExcelFileParser(private val multipartFile : MultipartFile) {
     private val mapWithIndexes = mapOf(
         "id" to 0,
         "userCrocCode" to 1,
+        "userName" to 2,
+        "userLastName" to 3,
+        "userFirstName" to 4,
+        "userMiddleName" to 5,
         "userDepartment" to 6,
         "isArchive" to 10,
         "availableBalance" to 13
@@ -25,27 +29,27 @@ class ExcelFileParser(private val multipartFile : MultipartFile) {
         while(rowIterator.hasNext()){
             val row = rowIterator.next()
             val cellIterator = row.cellIterator()
-            var id = 0
-            var userCrocCode = ""
-            var userDepartment = ""
-            var isArchive = false
-            var availableBalance = 0
+            val employeeModel = EmployeeModel()
             while(cellIterator.hasNext()){
                 val cell = cellIterator.next()
 
                 when(cell.columnIndex){
                     mapWithIndexes["id"] -> try {
-                        id = cell.numericCellValue.toInt()
+                        employeeModel.id = cell.numericCellValue.toInt()
                     }catch (e : Exception){
                         print("wtf0")
                         println(e.stackTrace)
                         break
                     }
-                    mapWithIndexes["userCrocCode"] -> userCrocCode = cell.stringCellValue
-                    mapWithIndexes["userDepartment"] -> userDepartment = cell.stringCellValue
+                    mapWithIndexes["userName"] -> employeeModel.userName = cell.stringCellValue
+                    mapWithIndexes["userLastName"] ->employeeModel.userLastName = cell.stringCellValue
+                    mapWithIndexes["userFirstName"] ->employeeModel.userFirstName = cell.stringCellValue
+                    mapWithIndexes["userMiddleName"] ->employeeModel.userMiddleName = cell.stringCellValue
+                    mapWithIndexes["userCrocCode"] -> employeeModel.userCrocCode = cell.stringCellValue
+                    mapWithIndexes["userDepartment"] -> employeeModel.userDepartment = cell.stringCellValue
                     mapWithIndexes["isArchive"] -> {
                         try {
-                            isArchive = when (cell.toString()) {
+                            employeeModel.isArchive = when (cell.toString()) {
                                 "FALSE" -> false
                                 "TRUE" -> true
                                 else -> {
@@ -59,14 +63,13 @@ class ExcelFileParser(private val multipartFile : MultipartFile) {
                         }
                     }
                     mapWithIndexes["availableBalance"] -> try {
-                        availableBalance = cell.numericCellValue.toInt()
+                        employeeModel.availableBalance = cell.numericCellValue.toInt()
                     }catch (e : Exception){
                         println(e.stackTrace)
                         break
                     }
                 }
             }
-            val employeeModel = EmployeeModel(id,userCrocCode,userDepartment,isArchive,availableBalance)
             resultMutableList.add(employeeModel)
         }
         return resultMutableList

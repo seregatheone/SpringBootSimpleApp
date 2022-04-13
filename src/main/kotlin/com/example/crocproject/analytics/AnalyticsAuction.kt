@@ -1,8 +1,8 @@
 package com.example.crocproject.analytics
 
-import com.beust.klaxon.Klaxon
 import com.example.crocproject.data.EmployeeModel
-import com.example.crocproject.data.network.JSONFrontendResponse
+import com.example.crocproject.data.models.DepartmentModel
+import com.example.crocproject.data.models.UserModel
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -29,7 +29,33 @@ class AnalyticsAuction {
                 "maximumBalance" to { it["availableBalance"].max()!!.toInt().toString() },
                 "minimumBalance" to { it["availableBalance"].min()!!.toInt().toString() },
                 "id" to { k++ },
-                "bobrDistribution" to { GsonBuilder().create().toJson(it["availableBalance"].toInts()) },
+                "staff" to { staff ->
+                    val listOfUsers = mutableListOf<UserModel>()
+
+                    dataFrame
+                        .filter { it["isArchive"] eq false }
+                        .filter { it["userDepartment"] eq staff["userDepartment"][0]!! }
+                        .remove("userDepartment")
+                        .remove("id")
+                        .rows.forEach { dataFrameRow ->
+                            val dataFrameMap = dataFrameRow.toMap()
+                            val userModel = UserModel()
+                            userModel.apply {
+                                userCrocCode = dataFrameMap["userCrocCode"].toString()
+                                availableBalance = dataFrameMap["availableBalance"].toString().toInt()
+                                userFirstName = dataFrameMap["userFirstName"].toString()
+                                userLastName = dataFrameMap["userLastName"].toString()
+                                userMiddleName = dataFrameMap["userMiddleName"].toString()
+                                userName = dataFrameMap["userName"].toString()
+
+                            }
+                            listOfUsers.add(userModel)
+                        }
+                    GsonBuilder().setPrettyPrinting().create().toJson(
+                        listOfUsers
+                    )
+                },
+
                 "departmentName" to { it["userDepartment"][0] }
             )
             .remove("userDepartment")
@@ -45,24 +71,26 @@ class AnalyticsAuction {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun reformatToListResponse(): List<JSONFrontendResponse> {
+    fun reformatToListResponse(): List<DepartmentModel> {
         val outputDataFrameIterator = dataFrame.rows.iterator()
-        val listOfResponses: MutableList<JSONFrontendResponse?> = mutableListOf()
+        val listOfResponses: MutableList<DepartmentModel?> = mutableListOf()
         while (outputDataFrameIterator.hasNext()) {
             val mapOfData = outputDataFrameIterator.next().toMap()
-            val sType = object : TypeToken<List<Int>>() { }.type
-            val bobrDistribution : List<Int> = Gson().fromJson(mapOfData["bobrDistribution"].toString(),sType)
-            val jSONFrontendResponse = JSONFrontendResponse(
+            val sType = object : TypeToken<List<UserModel>>() {}.type
+            val staffList: List<UserModel> = Gson().fromJson(mapOfData["staff"].toString(), sType)
+            val departmentModel = DepartmentModel(
                 id = mapOfData["id"].toString().toInt(),
-                bobrDistribution = bobrDistribution.sorted(),
+                staff = staffList
+//                emptyList()
+                ,
                 departmentName = mapOfData["departmentName"].toString(),
-                giniCoefficient = "%4.2f".format(mapOfData["giniCoefficient"].toString().toDouble() ),
+                giniCoefficient = "%4.2f".format(mapOfData["giniCoefficient"].toString().toDouble()),
                 maximumBalance = mapOfData["maximumBalance"].toString(),
                 minimumBalance = mapOfData["minimumBalance"].toString(),
                 numberOfStaff = mapOfData["numberOfStaff"].toString()
             )
-            listOfResponses.add(jSONFrontendResponse)
+            listOfResponses.add(departmentModel)
         }
-        return listOfResponses.sortedBy { it!!.giniCoefficient }.reversed() as List<JSONFrontendResponse>
+        return listOfResponses.sortedBy { it!!.giniCoefficient }.reversed() as List<DepartmentModel>
     }
 }
