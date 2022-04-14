@@ -80,7 +80,7 @@ class AnalyticsAuction {
             val staffList: List<UserModel> = Gson().fromJson(mapOfData["staff"].toString(), sType)
             val departmentModel = DepartmentModel(
                 id = mapOfData["id"].toString().toInt(),
-                staff = staffList,
+                staff = staffList.sortedBy { it.availableBalance },
                 departmentName = mapOfData["departmentName"].toString(),
                 giniCoefficient = "%4.2f".format(mapOfData["giniCoefficient"].toString().toDouble()),
                 maximumBalance = mapOfData["maximumBalance"].toString(),
