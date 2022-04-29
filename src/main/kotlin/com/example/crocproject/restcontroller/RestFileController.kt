@@ -1,7 +1,11 @@
 package com.example.crocproject.restcontroller
 
-import com.example.crocproject.data.DataManagement
-import com.example.crocproject.data.models.*
+import com.example.crocproject.data.DepartmentManagement
+import com.example.crocproject.data.MissionManagement
+import com.example.crocproject.data.PurchaseManagement
+import com.example.crocproject.data.models.parsermodels.department.DepartmentModel
+import com.example.crocproject.data.models.parsermodels.mission.MissionsModel
+import com.example.crocproject.data.models.parsermodels.purchases.PurchasesModel
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
@@ -11,19 +15,19 @@ class RestFileController{
 
     @PostMapping("/uploadFile/departments")
     fun uploadFileAuction(@RequestParam("file") multipartFile: MultipartFile):List<DepartmentModel>{
-        val dataManagement = DataManagement(multipartFile)
-        dataManagement.auctionAnalytics()
-        return dataManagement.departmentModelList
+        val departmentManagement = DepartmentManagement(multipartFile)
+        departmentManagement.auctionAnalytics()
+        return departmentManagement.departmentModelList
     }
     @PostMapping("/uploadFile/missions")
     fun uploadFileMissions(@RequestParam("file") multipartFile: MultipartFile):List<MissionsModel>{
-        val dataManagement = DataManagement(multipartFile)
-        dataManagement.usersMissions()
-        return dataManagement.missionModelList
+        val missionManagement = MissionManagement(multipartFile)
+        missionManagement.usersMissions()
+        return missionManagement.missionModelList
     }
     @PostMapping("/uploadFile/purchases")
     fun uploadFilePurchases(@RequestParam("file") multipartFile: MultipartFile):List<PurchasesModel>{
-        val dataManagement = DataManagement(multipartFile)
+        val dataManagement = PurchaseManagement(multipartFile)
         dataManagement.usersPurchases()
         return dataManagement.purchaseModelList
     }
@@ -33,3 +37,5 @@ class RestFileController{
         return "Status"
     }
 }
+
+

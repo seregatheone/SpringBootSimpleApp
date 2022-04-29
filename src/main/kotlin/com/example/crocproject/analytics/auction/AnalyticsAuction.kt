@@ -1,20 +1,21 @@
 package com.example.crocproject.analytics.auction
 
-import com.example.crocproject.data.models.EmployeeModel
-import com.example.crocproject.data.models.DepartmentModel
-import com.example.crocproject.data.models.UserModel
+import com.example.crocproject.data.models.parsermodels.EmployeeModel
+import com.example.crocproject.data.models.parsermodels.department.DepartmentModel
+import com.example.crocproject.data.models.parsermodels.department.UserModel
+import com.example.crocproject.data.models.parsermodels.purchases.PurchasesDoneModel
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import krangl.*
 import kotlin.math.abs
 
-class AnalyticsAuction {
+class AnalyticsAuction(private val list: List<EmployeeModel>) {
 
-    private var _dataFrameAuction: DataFrame? = null
+    private var _dataFrameAuction: DataFrame?
     private val dataFrameAuction get() = _dataFrameAuction!!
 
-    fun makeDataframe(list: List<EmployeeModel>) {
+    init{
         _dataFrameAuction = list.asDataFrame()
     }
 

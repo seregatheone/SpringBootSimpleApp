@@ -1,18 +1,19 @@
-package com.example.crocproject.analytics
+package com.example.crocproject.analytics.missions
 
-import com.example.crocproject.data.models.MissionsCompletedModel
-import com.example.crocproject.data.models.MissionsModel
-import com.example.crocproject.data.models.PurchasesModel
+import com.example.crocproject.data.models.parsermodels.mission.MissionsCompletedModel
+import com.example.crocproject.data.models.parsermodels.mission.MissionsModel
+import com.example.crocproject.data.models.parsermodels.purchases.PurchasesDoneModel
 import krangl.*
-import java.lang.Integer.sum
 
-class MissionsDataFrame {
-    private var _dataFrameMissions: DataFrame? = null
+class MissionsDataFrame(private val list: List<MissionsCompletedModel>) {
+
+    private var _dataFrameMissions: DataFrame?
     private val dataFrameMissions get() = _dataFrameMissions!!
 
-    fun makeDataframe(list: List<MissionsCompletedModel>) {
+    init{
         _dataFrameMissions = list.asDataFrame()
     }
+
     fun workWithDataframe() {
         _dataFrameMissions = dataFrameMissions
             .groupBy(by = arrayOf("login"))

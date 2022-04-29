@@ -1,27 +1,30 @@
 package com.example.crocproject.data.parsers
 
-import com.example.crocproject.data.models.MissionsCompletedModel
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.springframework.web.multipart.MultipartFile
+import com.example.crocproject.data.models.parsermodels.mission.MissionsCompletedModel
+import org.apache.poi.xssf.usermodel.XSSFSheet
 
-class ExcelFileParserMissions(private val multipartFile : MultipartFile) {
+class ExcelFileParserMissions(private val sheet : XSSFSheet) {
+
+    private val rowIterator = sheet.iterator()
+    private val titleRow = rowIterator.next()
+
+    private val associatedTitleRow = titleRow.associate { it.stringCellValue to it.columnIndex }
+
     private val mapWithIndexes = mapOf(
-        "login" to 0,
-        "earned" to 6
+        "login" to associatedTitleRow["Логин"],
+        "earned" to  associatedTitleRow["Вознаграждение"]
     )
     //excel start
-    private val workBook = XSSFWorkbook(multipartFile.inputStream)
-    private val neededSheet = workBook.getSheetAt(0)!!
     fun parseExcelFileWithPIO() : MutableList<MissionsCompletedModel>{
         val resultMutableList = mutableListOf<MissionsCompletedModel>()
-        val rowIterator = neededSheet.iterator()
-        rowIterator.next()
+
         while(rowIterator.hasNext()){
             val row = rowIterator.next()
             val cellIterator = row.cellIterator()
 
             var login = ""
             var earned = 0
+
             while(cellIterator.hasNext()){
                 val cell = cellIterator.next()
 

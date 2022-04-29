@@ -1,31 +1,33 @@
 package com.example.crocproject.data.parsers
 
 
-import com.example.crocproject.data.models.EmployeeModel
-import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import org.springframework.web.multipart.MultipartFile
+import com.example.crocproject.data.models.parsermodels.EmployeeModel
+import org.apache.poi.xssf.usermodel.XSSFSheet
 
 
-class ExcelFileParserDepartment(private val multipartFile : MultipartFile) {
+class ExcelFileParserDepartment(private val sheet : XSSFSheet) {
+
+    private val rowIterator = sheet.iterator()
+    private val titleRow = rowIterator.next()
+
+    private val associatedTitleRow = titleRow.associate { it.stringCellValue to it.columnIndex }
 
     private val mapWithIndexes = mapOf(
-        "id" to 0,
-        "userCrocCode" to 1,
-        "userName" to 2,
-        "userLastName" to 3,
-        "userFirstName" to 4,
-        "userMiddleName" to 5,
-        "userDepartment" to 6,
-        "isArchive" to 10,
-        "availableBalance" to 13
+        "id" to associatedTitleRow["id"],
+        "userCrocCode" to associatedTitleRow["userCrocCode"],
+        "userName" to associatedTitleRow["userName"],
+        "userLastName" to associatedTitleRow["userLastName"],
+        "userFirstName" to associatedTitleRow["userFirstName"],
+        "userMiddleName" to associatedTitleRow["userMiddleName"],
+        "userDepartment" to associatedTitleRow["userDepartment"],
+        "isArchive" to associatedTitleRow["isArchive"],
+        "availableBalance" to associatedTitleRow["availableBalance"]
     )
 
     //excel start
-    private val workBook = XSSFWorkbook(multipartFile.inputStream)
-    private val neededSheet = workBook.getSheetAt(0)!!
     fun parseExcelFileWithPIO() : MutableList<EmployeeModel>{
         val resultMutableList = mutableListOf<EmployeeModel>()
-        val rowIterator = neededSheet.iterator()
+        val rowIterator = sheet.iterator()
         rowIterator.next()
         while(rowIterator.hasNext()){
             val row = rowIterator.next()

@@ -1,4 +1,4 @@
-package com.example.crocproject.data.models
+package com.example.crocproject.data.models.parsermodels
 
 data class EmployeeModel(var id : Int = 0,
                          var userCrocCode:String = "",

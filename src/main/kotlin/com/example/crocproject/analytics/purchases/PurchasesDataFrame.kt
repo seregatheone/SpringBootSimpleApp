@@ -1,16 +1,18 @@
-package com.example.crocproject.analytics
+package com.example.crocproject.analytics.purchases
 
-import com.example.crocproject.data.models.PurchasesDoneModel
-import com.example.crocproject.data.models.PurchasesModel
+import com.example.crocproject.data.models.parsermodels.purchases.PurchasesDoneModel
+import com.example.crocproject.data.models.parsermodels.purchases.PurchasesModel
 import krangl.*
 
-class PurchasesDataFrame {
-    private var _dataFramePurchases: DataFrame? = null
+class PurchasesDataFrame(private val list: List<PurchasesDoneModel>) {
+
+    private var _dataFramePurchases: DataFrame?
     private val dataFramePurchases get() = _dataFramePurchases!!
 
-    fun makeDataframe(list: List<PurchasesDoneModel>) {
+    init{
         _dataFramePurchases = list.asDataFrame()
     }
+
     fun workWithDataframe() {
         _dataFramePurchases = dataFramePurchases
             .groupBy(by = arrayOf("login","userCrocCode"))
