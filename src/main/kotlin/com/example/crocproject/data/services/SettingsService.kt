@@ -1,7 +1,7 @@
 package com.example.crocproject.data.services
 
-import com.example.crocproject.data.models.dto.SettingsDto
-import com.example.crocproject.data.models.repositorymodels.Settings
+import com.example.crocproject.data.models.aucton.dto.SettingsDto
+import com.example.crocproject.data.models.aucton.repositorymodels.Settings
 import com.example.crocproject.data.repository.SettingsRepository
 import jdk.jshell.execution.Util
 import org.apache.commons.io.IOUtils

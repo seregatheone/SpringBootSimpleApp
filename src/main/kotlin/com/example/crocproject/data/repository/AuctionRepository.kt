@@ -1,7 +1,7 @@
 package com.example.crocproject.data.repository
 
-import com.example.crocproject.data.models.repositorymodels.Auction
-import com.example.crocproject.data.models.repositorymodels.Settings
+import com.example.crocproject.data.models.aucton.repositorymodels.Auction
+import com.example.crocproject.data.models.aucton.repositorymodels.Settings
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 import org.springframework.stereotype.Repository

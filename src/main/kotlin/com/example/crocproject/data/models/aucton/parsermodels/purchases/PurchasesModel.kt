@@ -1,4 +1,4 @@
-package com.example.crocproject.data.models.parsermodels.purchases
+package com.example.crocproject.data.models.aucton.parsermodels.purchases
 
 data class PurchasesModel(
     val login: String,

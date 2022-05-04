@@ -1,7 +1,7 @@
 package com.example.crocproject.restcontroller
 
-import com.example.crocproject.data.models.dto.AuctionDto
-import com.example.crocproject.data.models.dto.SettingsDto
+import com.example.crocproject.data.models.aucton.dto.AuctionDto
+import com.example.crocproject.data.models.aucton.dto.SettingsDto
 import com.example.crocproject.data.services.AuctionService
 import com.example.crocproject.data.services.SettingsService
 import org.springframework.web.bind.annotation.*
@@ -12,7 +12,7 @@ class RestDBSettingsController(
     private val settingsService : SettingsService
 ){
     @PostMapping("/settings")
-    fun storeSettings(json : String){
+    fun storeSettings(@RequestBody json : String){
         settingsService.storeSettings(
             SettingsDto(
                 id = 0,
@@ -32,7 +32,7 @@ class RestDBAuctionsController(
     private val auctionService : AuctionService
 ){
     @PostMapping("/auction")
-    fun storeAuction(json : String){
+    fun storeAuction(@RequestBody json : String){
         auctionService.storeAuction(
             AuctionDto(
                 id = 0,
@@ -42,7 +42,7 @@ class RestDBAuctionsController(
     }
 
     @GetMapping("/auction/{auctionId}")
-    fun loadOneAuction(@PathVariable auctionId : Int) : AuctionDto{
+    fun loadOneAuction(@PathVariable auctionId : Int) : AuctionDto {
         return auctionService.loadOneAuction(auctionId)
     }
 

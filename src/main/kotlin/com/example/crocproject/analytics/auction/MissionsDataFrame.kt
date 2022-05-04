@@ -1,8 +1,7 @@
-package com.example.crocproject.analytics.missions
+package com.example.crocproject.analytics.auction
 
-import com.example.crocproject.data.models.parsermodels.mission.MissionsCompletedModel
-import com.example.crocproject.data.models.parsermodels.mission.MissionsModel
-import com.example.crocproject.data.models.parsermodels.purchases.PurchasesDoneModel
+import com.example.crocproject.data.models.aucton.parsermodels.mission.MissionsCompletedModel
+import com.example.crocproject.data.models.aucton.parsermodels.mission.MissionsModel
 import krangl.*
 
 class MissionsDataFrame(private val list: List<MissionsCompletedModel>) {

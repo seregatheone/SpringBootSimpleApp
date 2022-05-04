@@ -1,7 +1,7 @@
 package com.example.crocproject.data.services
 
-import com.example.crocproject.data.models.dto.AuctionDto
-import com.example.crocproject.data.models.repositorymodels.Auction
+import com.example.crocproject.data.models.aucton.dto.AuctionDto
+import com.example.crocproject.data.models.aucton.repositorymodels.Auction
 import com.example.crocproject.data.repository.AuctionRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service

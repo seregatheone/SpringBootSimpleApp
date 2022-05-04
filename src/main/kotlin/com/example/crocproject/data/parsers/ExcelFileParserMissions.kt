@@ -1,6 +1,6 @@
 package com.example.crocproject.data.parsers
 
-import com.example.crocproject.data.models.parsermodels.mission.MissionsCompletedModel
+import com.example.crocproject.data.models.aucton.parsermodels.mission.MissionsCompletedModel
 import org.apache.poi.xssf.usermodel.XSSFSheet
 
 class ExcelFileParserMissions(private val sheet : XSSFSheet) {

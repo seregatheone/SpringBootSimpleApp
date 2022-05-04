@@ -1,9 +1,9 @@
 package com.example.crocproject.analytics.auction
 
-import com.example.crocproject.data.models.parsermodels.EmployeeModel
-import com.example.crocproject.data.models.parsermodels.department.DepartmentModel
-import com.example.crocproject.data.models.parsermodels.department.UserModel
-import com.example.crocproject.data.models.parsermodels.purchases.PurchasesDoneModel
+import com.example.crocproject.data.models.aucton.parsermodels.EmployeeModel
+import com.example.crocproject.data.models.aucton.parsermodels.department.DepartmentModel
+import com.example.crocproject.data.models.aucton.parsermodels.department.UserModel
+import com.example.crocproject.data.models.aucton.parsermodels.purchases.PurchasesDoneModel
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken

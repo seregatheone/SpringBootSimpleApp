@@ -1,4 +1,4 @@
-package com.example.crocproject.data.models.parsermodels.department
+package com.example.crocproject.data.models.aucton.parsermodels.department
 
 
 data class DepartmentModel(

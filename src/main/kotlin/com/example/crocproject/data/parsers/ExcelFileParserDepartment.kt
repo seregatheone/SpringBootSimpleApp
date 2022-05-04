@@ -1,7 +1,7 @@
 package com.example.crocproject.data.parsers
 
 
-import com.example.crocproject.data.models.parsermodels.EmployeeModel
+import com.example.crocproject.data.models.aucton.parsermodels.EmployeeModel
 import org.apache.poi.xssf.usermodel.XSSFSheet
 
 

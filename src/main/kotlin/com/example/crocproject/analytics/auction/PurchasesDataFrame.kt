@@ -1,7 +1,7 @@
-package com.example.crocproject.analytics.purchases
+package com.example.crocproject.analytics.auction
 
-import com.example.crocproject.data.models.parsermodels.purchases.PurchasesDoneModel
-import com.example.crocproject.data.models.parsermodels.purchases.PurchasesModel
+import com.example.crocproject.data.models.aucton.parsermodels.purchases.PurchasesDoneModel
+import com.example.crocproject.data.models.aucton.parsermodels.purchases.PurchasesModel
 import krangl.*
 
 class PurchasesDataFrame(private val list: List<PurchasesDoneModel>) {

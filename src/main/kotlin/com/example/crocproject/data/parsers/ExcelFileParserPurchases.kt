@@ -1,6 +1,6 @@
 package com.example.crocproject.data.parsers
 
-import com.example.crocproject.data.models.parsermodels.purchases.PurchasesDoneModel
+import com.example.crocproject.data.models.aucton.parsermodels.purchases.PurchasesDoneModel
 import org.apache.poi.xssf.usermodel.XSSFSheet
 
 class ExcelFileParserPurchases(private val sheet : XSSFSheet) {

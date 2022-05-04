@@ -3,9 +3,9 @@ package com.example.crocproject.restcontroller
 import com.example.crocproject.data.DepartmentManagement
 import com.example.crocproject.data.MissionManagement
 import com.example.crocproject.data.PurchaseManagement
-import com.example.crocproject.data.models.parsermodels.department.DepartmentModel
-import com.example.crocproject.data.models.parsermodels.mission.MissionsModel
-import com.example.crocproject.data.models.parsermodels.purchases.PurchasesModel
+import com.example.crocproject.data.models.aucton.parsermodels.department.DepartmentModel
+import com.example.crocproject.data.models.aucton.parsermodels.mission.MissionsModel
+import com.example.crocproject.data.models.aucton.parsermodels.purchases.PurchasesModel
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 

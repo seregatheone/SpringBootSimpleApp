@@ -1,7 +1,7 @@
 package com.example.crocproject.data
 
-import com.example.crocproject.analytics.purchases.PurchasesDataFrame
-import com.example.crocproject.data.models.parsermodels.purchases.PurchasesModel
+import com.example.crocproject.analytics.auction.PurchasesDataFrame
+import com.example.crocproject.data.models.aucton.parsermodels.purchases.PurchasesModel
 import com.example.crocproject.data.parsers.ExcelFileParserPurchases
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.web.multipart.MultipartFile

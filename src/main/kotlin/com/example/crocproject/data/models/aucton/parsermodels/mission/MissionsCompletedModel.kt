@@ -1,4 +1,4 @@
-package com.example.crocproject.data.models.parsermodels.mission
+package com.example.crocproject.data.models.aucton.parsermodels.mission
 
 data class MissionsCompletedModel(
     val moneyAmount: Int,
