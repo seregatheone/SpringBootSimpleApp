@@ -1,44 +1,44 @@
 package com.example.crocproject.analytics.wheel
 
-import jetbrains.datalore.plot.common.data.SeriesUtil.sum
-import kotlinx.coroutines.*
 import kotlin.random.Random
 
-//fun main() {
-//    val tickets = 100
-//    val discounts = MutableList(16) { tickets / 16 }
-//    discounts[15]+=tickets%16
-//    val price = 5000
-//    val budget = 30000
-//    val scope = CoroutineScope(Dispatchers.Default)
-//    scope.launch {
-//        for (i in 0..tickets*1000) {
-//            val spent = calculateCost(discounts, price)
-//            if (spent > budget) {
-//                val cat = Random.nextInt(1, 16)
-//                if (discounts[cat] <= 0) {
-//                    continue
-//                }
-//                discounts[cat] -= 1
-//                discounts[cat - 1] += 1
-//
-//            }
-//        }
-//    }.invokeOnCompletion {
-//        discounts.forEach {
-//            println(it)
-//        }
-//        println(calculateCost(discounts,price))
-//        println(sum(discounts.map{it.toDouble()}))
-//    }
-//
-//    Thread.sleep(3000)
-//
-//}
-//fun calculateCost(list:List<Int>,price : Int):Int{
-//    var summa = 0
-//    list.forEachIndexed { index, i ->
-//        summa+= i * index * price / 20
-//    }
-//    return summa
-//}
+fun main(){
+
+    val tickets = 100
+    val discounts = listOf(5,10,15,20)
+    val price = 5000
+    val budget = 35000
+
+
+
+    fun calculateCost(map:Map<Int,Int>,price : Int):Int{
+        var summa = 0
+        map.forEach{ (percent, amount) ->
+            summa+= percent * amount * price / 100
+        }
+        return summa
+    }
+
+    fun makeComputation(tickets : Int,
+                                 discounts : List<Int>,
+                                 price : Int,
+                                 budget : Int
+    ): MutableMap<Int,Int>{
+        val discountsMap = discounts.associateWith { tickets/discounts.size }.toMutableMap()
+        for (i in 0..tickets*100) {
+            val spent = calculateCost(discountsMap, price)
+            if (spent > budget) {
+                val cat = Random.nextInt(0, discounts.size)
+                val randomKey = discountsMap.keys.toList()[cat]
+                if (discounts[randomKey]!! <= 0) {
+                    continue
+                }
+                discountsMap.merge(randomKey,1,Int::minus)
+                discountsMap.merge(randomKey-1,1,Int::plus)
+            }
+        }
+        return discountsMap
+    }
+
+    println(makeComputation(tickets = tickets, discounts = discounts, price = price, budget = budget))
+}

@@ -6,74 +6,35 @@ import com.example.crocproject.data.models.wheel.WheelGoodsRequestBody
 import kotlinx.coroutines.*
 import kotlin.random.Random
 
-class DisloyalAnalyticsWheel(private val wheelGoodsRequestBody : WheelGoodsRequestBody) {
-    fun countTickets() : ResponseWheel {
-        val fortuneItemsList = mutableListOf<FortuneItem>()
-        var spent = 0
-        for (fortuneItem in wheelGoodsRequestBody.fortuneItems){
-            val tickets = fortuneItem.tickets.toInt()
-            val discounts = MutableList(16) { tickets / 16 }
-            discounts[15]+=tickets%16
-            val price = fortuneItem.price.toInt()
-            val budget = fortuneItem.budget.toInt()
-            val discountTickets = mutableListOf<Pair<String, Int>>()
+class DisloyalAnalyticsWheel: WheelAnalyticsClass() {
 
-            CoroutineScope(Dispatchers.Default).launch {
-                val resultDeferred : Deferred<List<Int>> = async{
-                    makeComputation(
-                        tickets = tickets,
-                        discounts = discounts,
-                        price = price,
-                        budget = budget
-                    )
-                }
-                val result = resultDeferred.await()
-                result.forEachIndexed { index, i ->
-                    discountTickets.add(
-                            Pair("${index*5}", i)
-                        )
-                    }
-                spent += calculateCost(discounts,price)
-            }
-            val fortuneItemsListElement = FortuneItem(
-                id = fortuneItem.id,
-                lotName = fortuneItem.lotName,
-                discountTickets = discountTickets
-            )
-
-            fortuneItemsList.add(fortuneItemsListElement)
-        }
-
-        return ResponseWheel(
-            spent,
-            fortuneItems = fortuneItemsList
-        )
-    }
-    private fun calculateCost(list:List<Int>,price : Int):Int{
+    private fun calculateCost(map:Map<Int,Int>,price : Int):Int{
         var summa = 0
-        list.forEachIndexed { index, i ->
-            summa+= i * index * price / 20
+        map.forEach{ (percent, amount) ->
+            summa+= percent * amount * price / 100
         }
         return summa
     }
-    private fun makeComputation(
-        tickets : Int,
-        discounts : MutableList<Int>,
-        price : Int,
-        budget : Int
-    ) : List<Int>{
+
+    //split tickets randomly according to cost and amount
+    override fun makeComputation(tickets : Int,
+                                 discounts : List<Int>,
+                                 price : Int,
+                                 budget : Int
+    ): MutableMap<Int,Int>{
+        val discountsMap = discounts.associateWith { tickets/discounts.size }.toMutableMap()
         for (i in 0..tickets*100) {
-            val spent = calculateCost(discounts, price)
+            val spent = calculateCost(discountsMap, price)
             if (spent > budget) {
-                val cat = Random.nextInt(1, 16)
-                if (discounts[cat] <= 0) {
+                val cat = Random.nextInt(0, discounts.size)
+                val randomKey = discountsMap.keys.toList()[cat]
+                if (discounts[randomKey]!! <= 0) {
                     continue
                 }
-                discounts[cat] -= 1
-                discounts[cat - 1] += 1
-
+                discountsMap.merge(randomKey,1,Int::minus)
+                discountsMap.merge(randomKey-1,1,Int::plus)
             }
         }
-        return discounts
+        return discountsMap
     }
 }

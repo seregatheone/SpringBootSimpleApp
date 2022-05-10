@@ -16,6 +16,8 @@ repositories {
 }
 
 dependencies {
+    implementation("com.github.haifengl:smile-kotlin:2.6.0")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
 
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
