@@ -1,5 +1,6 @@
 package com.example.crocproject.analytics.wheel
 
+import com.example.crocproject.utils.calculateCost
 import jetbrains.datalore.plot.common.data.SeriesUtil.sum
 import smile.math.BFGS
 import kotlin.math.pow
@@ -21,7 +22,12 @@ class LoyalAnalyticsWheel : WheelAnalyticsClass() {
         val res = BFGS.minimize(func, arrStart, 0.0001, 100000)
 
         val computationDiscounts = generateDiscsInt(arrStart,discounts)
-        computationDiscounts.merge(discounts.minOf { it },(tickets - sum(computationDiscounts.values.map{it.toDouble()})).toInt(),Int::plus)
+
+        while(calculateCost(computationDiscounts,price) < budget && tickets>sum(computationDiscounts.values.map{it.toDouble()})){
+            println(computationDiscounts)
+            computationDiscounts.merge(discounts.minOf { it },1,Int::plus)
+        }
+        computationDiscounts.merge(discounts.minOf { it },1,Int::minus)
         return computationDiscounts
     }
 }

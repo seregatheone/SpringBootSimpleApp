@@ -27,10 +27,6 @@ class DisloyalAnalyticsWheel: WheelAnalyticsClass() {
             }
         }
 
-        while (calculateCost(discountsMap, price)<=budget){
-            discountsMap.merge(discounts[0],1,Int::plus)
-        }
-        discountsMap.merge(discounts[0],1,Int::minus)
         return discountsMap
     }
 }
