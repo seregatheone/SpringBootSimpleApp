@@ -1,7 +1,5 @@
 package com.example.crocproject.analytics.wheel
 
-import com.example.crocproject.utils.calculateCost
-import jetbrains.datalore.base.math.ipow
 import jetbrains.datalore.plot.common.data.SeriesUtil.sum
 import smile.math.DifferentiableMultivariateFunction
 import kotlin.math.pow

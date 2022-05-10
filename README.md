@@ -21,14 +21,14 @@ and `bootRun` commands:
 `GET /settings` - load settings 
 
 ## Wheel Requests
-`GET /compute-wheel` - compute wheel lottery analytics\
+`POST /compute-wheel` - compute wheel lottery analytics\
 `POST /wheel-lots` - save information about computed wheel lottery \
 `GET /wheel-lots/{wheelId}` - load wheel lottery by wheelId\
 `DELETE /wheel-lots/{wheelId}` - delete wheel lottery by wheelId\
 `GET /wheel-lots` - load all wheel lottery
 
 ## Missions Requests
-`GET /compute-mission` - compute missions analytics\
+`POST /compute-mission` - compute missions analytics\
 `POST /missions` - save information about computed wheel lottery \
 `GET /missions/{wheelId}` - load wheel lottery by wheelId\
 `DELETE /missions/{wheelId}` - delete wheel lottery by wheelId\

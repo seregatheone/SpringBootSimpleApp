@@ -12,7 +12,7 @@ class DepartmentManagement(private val multipartFile : MultipartFile) {
 
     fun auctionAnalytics(){
         val workBook = XSSFWorkbook(multipartFile.inputStream)
-        val neededSheet = workBook.getSheetAt(0)!!
+        val neededSheet = workBook.getSheetAt(0)
 
         val fileObserver = ExcelFileParserDepartment(neededSheet)
         val listOfEmployers = fileObserver.parseExcelFileWithPIO()

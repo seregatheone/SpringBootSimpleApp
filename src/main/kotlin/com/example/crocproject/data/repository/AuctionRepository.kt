@@ -27,7 +27,7 @@ class AuctionRepositoryImpl(
 
     override fun storeAuction(auction: Auction) {
         jdbcTemplate.update (
-            "insert into auctions (auction) values (:auction)",
+            "INSERT INTO auctions (auction) VALUES (:auction)",
             mapOf(
                 "auction" to auction.jsonData
             )

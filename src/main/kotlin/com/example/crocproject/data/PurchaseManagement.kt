@@ -12,10 +12,8 @@ class PurchaseManagement(private val multipartFile : MultipartFile) {
     val purchaseModelList get() = _purchaseModelList!!
 
     fun usersPurchases(){
-
-
         val workBook = XSSFWorkbook(multipartFile.inputStream)
-        val neededSheet = workBook.getSheetAt(0)!!
+        val neededSheet = workBook.getSheetAt(0)
 
         val fileObserver = ExcelFileParserPurchases(neededSheet)
         val listOfCompletedPurchases = fileObserver.parseExcelFileWithPIO()

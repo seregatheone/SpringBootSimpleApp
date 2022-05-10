@@ -12,10 +12,8 @@ class MissionManagement(private val multipartFile : MultipartFile) {
     val missionModelList get() = _missionModelList!!
 
     fun usersMissions(){
-
-
         val workBook = XSSFWorkbook(multipartFile.inputStream)
-        val neededSheet = workBook.getSheetAt(0)!!
+        val neededSheet = workBook.getSheetAt(0)
 
         val fileObserver = ExcelFileParserMissions(neededSheet)
         val listOfCompletedMission = fileObserver.parseExcelFileWithPIO()

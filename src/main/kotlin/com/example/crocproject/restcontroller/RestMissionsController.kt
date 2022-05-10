@@ -1,6 +1,5 @@
 package com.example.crocproject.restcontroller
 
-import com.example.crocproject.data.models.missions.MissionsDataClass
 import com.example.crocproject.data.models.missions.dto.MissionsDto
 import com.example.crocproject.data.services.MissionsService
 import org.springframework.web.bind.annotation.*

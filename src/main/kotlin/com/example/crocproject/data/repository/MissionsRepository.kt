@@ -26,7 +26,7 @@ class MissionsRepositoryImpl(
 
     override fun storeMission(mission: Mission) {
         jdbcTemplate.update (
-            "insert into missions (json_data) values (:jsonData)",
+            "INSERT INTO missions (json_data) VALUES (:jsonData)",
             mapOf(
                 "jsonData" to mission.jsonData,
             )

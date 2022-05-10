@@ -7,3 +7,6 @@ fun calculateCost(map:Map<Int,Int>,price : Int):Int{
     }
     return summa
 }
+fun sumOfInts(listOfInts : List<Int>) : Int{
+    return listOfInts.reduce(){summa, element -> summa + element}
+}

@@ -26,7 +26,7 @@ class LotsRepositoryImpl(
 
     override fun storeLot(lot: Lot) {
         jdbcTemplate.update (
-            "insert into lots (json_data) values (:jsonData)",
+            "INSERT INTO lots (json_data) VALUES (:jsonData)",
             mapOf(
                 "jsonData" to lot.jsonData
             )
