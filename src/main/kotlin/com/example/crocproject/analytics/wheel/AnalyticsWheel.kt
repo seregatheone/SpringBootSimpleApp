@@ -1,8 +1,8 @@
 package com.example.crocproject.analytics.wheel
 
-import com.example.crocproject.data.models.wheel.FortuneItem
-import com.example.crocproject.data.models.wheel.ResponseWheel
-import com.example.crocproject.data.models.wheel.WheelGoodsRequestBody
+import com.example.crocproject.data.models.wheel.restmodels.FortuneItem
+import com.example.crocproject.data.models.wheel.restmodels.ResponseWheel
+import com.example.crocproject.data.models.wheel.restmodels.WheelGoodsRequestBody
 import jetbrains.datalore.plot.common.data.SeriesUtil.sum
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException

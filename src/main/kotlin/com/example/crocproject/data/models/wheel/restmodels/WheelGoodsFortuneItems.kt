@@ -1,4 +1,4 @@
-package com.example.crocproject.data.models.wheel
+package com.example.crocproject.data.models.wheel.restmodels
 
 
 data class WheelGoodsFortuneItems(

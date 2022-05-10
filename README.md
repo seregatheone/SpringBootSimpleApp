@@ -10,24 +10,24 @@ and `bootRun` commands:
 ./gradlew bootRun
 ```
 
- ###Auction Requests
+ ##Auction Requests
 `POST /auction` - save information about computed auction \
 `GET /auction/{auctionId}` - load auction by auctionId \
 `DELETE /auction/{auctionId}` - delete auction by auctionId \
 `GET /auctions` - load all auctions 
 
-###Settings Request
+ ##Settings Request
 `POST /settings` - store settings \
-`GET /settings` - load settings \
+`GET /settings` - load settings 
 
- ###Wheel Requests
+ ##Wheel Requests
 `GET /compute-wheel` - compute wheel lottery analytics\
 `POST /wheel-lots` - save information about computed wheel lottery \
 `GET /wheel-lots/{wheelId}` - load wheel lottery by wheelId\
 `DELETE /wheel-lots/{wheelId}` - delete wheel lottery by wheelId\
 `GET /wheel-lots` - load all wheel lottery
 
-###Missions Requests
+ ##Missions Requests
 `GET /compute-mission` - compute missions analytics\
 `POST /missions` - save information about computed wheel lottery \
 `GET /missions/{wheelId}` - load wheel lottery by wheelId\

@@ -1,9 +1,5 @@
 package com.example.crocproject.analytics.wheel
 
-import com.example.crocproject.data.models.wheel.FortuneItem
-import com.example.crocproject.data.models.wheel.ResponseWheel
-import com.example.crocproject.data.models.wheel.WheelGoodsRequestBody
-import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class DisloyalAnalyticsWheel: WheelAnalyticsClass() {

@@ -3,15 +3,9 @@ package com.example.crocproject.data.services
 import com.example.crocproject.data.models.aucton.dto.SettingsDto
 import com.example.crocproject.data.models.aucton.repositorymodels.Settings
 import com.example.crocproject.data.repository.SettingsRepository
-import jdk.jshell.execution.Util
-import org.apache.commons.io.IOUtils
-import org.springframework.core.io.ClassPathResource
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import java.io.IOException
-import java.nio.charset.Charset
-import kotlin.text.Charsets.UTF_8
 
 @Service
 class SettingsServiceImpl(
