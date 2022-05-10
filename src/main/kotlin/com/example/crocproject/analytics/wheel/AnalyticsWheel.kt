@@ -3,6 +3,7 @@ package com.example.crocproject.analytics.wheel
 import com.example.crocproject.data.models.wheel.restmodels.FortuneItem
 import com.example.crocproject.data.models.wheel.restmodels.ResponseWheel
 import com.example.crocproject.data.models.wheel.restmodels.WheelGoodsRequestBody
+import com.example.crocproject.utils.calculateCost
 import jetbrains.datalore.plot.common.data.SeriesUtil.sum
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
@@ -30,7 +31,7 @@ class AnalyticsWheel(private val wheelGoodsRequestBody : WheelGoodsRequestBody) 
             val discounts = fortuneItem.discounts.toMutableList()
             val price = fortuneItem.price
             val percentage = fortuneItem.percentage
-            val discountTickets = mutableListOf<Pair<String, Int>>()
+            val discountTickets = mutableListOf<Pair<Int, Int>>()
 
             val result = analyticsClass.makeComputation(
                     tickets = tickets,
@@ -40,10 +41,10 @@ class AnalyticsWheel(private val wheelGoodsRequestBody : WheelGoodsRequestBody) 
                 )
             result.forEach{ (discount, amount) ->
                 discountTickets.add(
-                    Pair(discount.toString(), amount)
+                    Pair(discount, amount)
                 )
             }
-            val spent = calculateCost(discounts,price)
+            val spent = calculateCost(result,price)
 
             val currentTickets = sum(result.values.toList().map{it.toDouble()}).toInt()
 
@@ -67,11 +68,5 @@ class AnalyticsWheel(private val wheelGoodsRequestBody : WheelGoodsRequestBody) 
             fortuneItems = fortuneItemsList
         )
     }
-    private fun calculateCost(mutableList:List<Int>, price : Int) : Int {
-        var summa = 0
-        mutableList.forEachIndexed { index, i ->
-            summa += (i) * (index) * price / 20
-        }
-        return summa
-    }
+
 }

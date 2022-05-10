@@ -1,16 +1,9 @@
 package com.example.crocproject.analytics.wheel
 
+import com.example.crocproject.utils.calculateCost
 import kotlin.random.Random
 
 class DisloyalAnalyticsWheel: WheelAnalyticsClass() {
-
-    private fun calculateCost(map:Map<Int,Int>,price : Int):Int{
-        var summa = 0
-        map.forEach{ (percent, amount) ->
-            summa+= percent * amount * price / 100
-        }
-        return summa
-    }
 
     //split tickets randomly according to cost and amount
     override fun makeComputation(tickets : Int,
@@ -18,19 +11,26 @@ class DisloyalAnalyticsWheel: WheelAnalyticsClass() {
                                  price : Int,
                                  budget : Int
     ): MutableMap<Int,Int>{
-        val discountsMap = discounts.associateWith { tickets/discounts.size }.toMutableMap()
+        val sortedDisc = discounts.sorted()
+        val discountsMap = sortedDisc.associateWith { tickets/sortedDisc.size }.toMutableMap()
         for (i in 0..tickets*100) {
             val spent = calculateCost(discountsMap, price)
             if (spent > budget) {
-                val cat = Random.nextInt(0, discounts.size)
+                val cat = Random.nextInt(1, sortedDisc.size)
                 val randomKey = discountsMap.keys.toList()[cat]
-                if (discounts[randomKey]!! <= 0) {
+                if (discountsMap[randomKey]!! <= 0) {
                     continue
                 }
+                val randomKeyMinusOne = discountsMap.keys.toList()[cat-1]
                 discountsMap.merge(randomKey,1,Int::minus)
-                discountsMap.merge(randomKey-1,1,Int::plus)
+                discountsMap.merge(randomKeyMinusOne,1,Int::plus)
             }
         }
+
+        while (calculateCost(discountsMap, price)<=budget){
+            discountsMap.merge(discounts[0],1,Int::plus)
+        }
+        discountsMap.merge(discounts[0],1,Int::minus)
         return discountsMap
     }
 }

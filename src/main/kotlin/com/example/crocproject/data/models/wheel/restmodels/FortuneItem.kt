@@ -5,5 +5,5 @@ data class FortuneItem (
     val lotName : String,
     val totalSpentInRub: Int,
     val tickets: Int,
-    val discountTickets : List<Pair<String,Int>>
+    val discountTickets : List<Pair<Int,Int>>
         )

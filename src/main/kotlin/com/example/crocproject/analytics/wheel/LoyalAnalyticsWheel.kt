@@ -8,7 +8,7 @@ class LoyalAnalyticsWheel : WheelAnalyticsClass() {
 
     private fun generateDiscsInt(doubleArray: DoubleArray,discounts : List<Int>): MutableMap<Int,Int> {
         val (a, b) = listOf(doubleArray[0], doubleArray[1])
-        return discounts.associateWith { (a * b.pow(-it)).toInt() }.toMutableMap()
+        return discounts.associateWith { (a * b.pow(-discounts.indexOf(it))).toInt() }.toMutableMap()
     }
 
     override fun makeComputation(tickets : Int,
@@ -21,8 +21,7 @@ class LoyalAnalyticsWheel : WheelAnalyticsClass() {
         val res = BFGS.minimize(func, arrStart, 0.0001, 100000)
 
         val computationDiscounts = generateDiscsInt(arrStart,discounts)
-
-        computationDiscounts.merge(discounts.minOf { it },(tickets - sum(discounts.map { it.toDouble() })).toInt(),Int::plus)
+        computationDiscounts.merge(discounts.minOf { it },(tickets - sum(computationDiscounts.values.map{it.toDouble()})).toInt(),Int::plus)
         return computationDiscounts
     }
 }
