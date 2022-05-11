@@ -7,6 +7,13 @@ fun calculateCost(map:Map<Int,Int>,price : Int):Int{
     }
     return summa
 }
-fun sumOfInts(listOfInts : List<Int>) : Int{
+fun sumOfIntList(listOfInts : List<Int>) : Int{
     return listOfInts.reduce(){summa, element -> summa + element}
+}
+fun <T,S> zipListsIntoMap(firstList : List<T>, secondList : List<S>) : Map<T,S>{
+    val mapMerged = mutableMapOf<T,S>()
+    for (i in 0 until maxOf(firstList.size, secondList.size)){
+        mapMerged[firstList[i]] = secondList[i]
+    }
+    return mapMerged
 }

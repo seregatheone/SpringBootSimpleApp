@@ -1,15 +1,15 @@
 package com.example.crocproject.data.models.missions.restmodels.response
 
-data class Mission(
-    val budget: String,
-    val fixedBusters: FixedBusters,
+data class MissionResponseItem(
+    val budget: Int,
+    val fixedBusters: List<FixedBusters>,
     val fixedTickets: Int,
-    val missionIncome: String,
+    val missionIncome: Int,
     val missionName: String,
     val multBusterTickets: Int,
-    val multBusters: MultBusters,
+    val multBusters: List<MultBusters>,
     val percentBusterTickets: Int,
-    val percentBusters: PercentBusters,
+    val percentBusters: List<PercentBusters>,
     val spent: Int,
     val tickets: Int
 )
