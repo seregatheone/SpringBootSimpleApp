@@ -59,7 +59,7 @@ class MissionsAnalytics(private val requestMission: RequestMission) {
             res.filter { it.key.second == "multBusters" }.forEach {
                 multBusters.add(
                     MultBusters(
-                        bonus = (it.key.first * missionIncome).toInt(),
+                        bonus = (it.key.first).toInt(),
                         tickets = it.value.toInt()
                     )
                 )
@@ -70,7 +70,7 @@ class MissionsAnalytics(private val requestMission: RequestMission) {
             res.filter { it.key.second == "percentBusters" }.forEach {
                 percentBusters.add(
                     PercentBusters(
-                        bonus = (it.key.first * missionIncome).toInt(),
+                        bonus = (it.key.first * 100).toInt(),
                         tickets = it.value.toInt()
                     )
                 )
