@@ -23,11 +23,12 @@ class SettingsRepositoryImpl(
 }
 
     override fun storeSettings(settings: Settings) {
-        when(jdbcTemplate.query(
+        when(val response = jdbcTemplate.query(
             "SELECT * FROM settings_table",
             ROW_MAPPER
         ).size){
             0-> {
+                print(response)
                 jdbcTemplate.update (
                         "INSERT INTO settings_table (settings) VALUES (:settings)",
                 mapOf(
@@ -35,13 +36,15 @@ class SettingsRepositoryImpl(
                 )
                 )
             }
-            else -> jdbcTemplate.update(
-                "UPDATE settings_table SET settings = :settings WHERE settings_id = :settings_id",
-                mapOf(
-                    "settings_id" to settings.id,
-                    "settings" to settings.jsonData
+            else -> {
+                jdbcTemplate.update(
+                    "UPDATE settings_table SET settings = :settings",
+                    mapOf(
+                        "settings" to settings.jsonData
+                    )
                 )
-            )
+                print(response)
+            }
         }
     }
 
