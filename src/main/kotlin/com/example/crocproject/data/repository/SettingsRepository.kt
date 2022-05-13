@@ -17,7 +17,7 @@ class SettingsRepositoryImpl(
 ):SettingsRepository{
     override fun loadSettings(): Settings? {
         return jdbcTemplate.query(
-            "SELECT * FROM settings_table WHERE settings_id = 0",
+            "SELECT * FROM settings_table",
             ROW_MAPPER
         ).firstOrNull()
 }
@@ -29,9 +29,8 @@ class SettingsRepositoryImpl(
         ).size){
             0-> {
                 jdbcTemplate.update (
-                        "INSERT INTO settings_table (settings_id, settings) VALUES (:settings_id, :settings)",
+                        "INSERT INTO settings_table (settings) VALUES (:settings)",
                 mapOf(
-                    "settings_id" to settings.id,
                     "settings" to settings.jsonData
                 )
                 )
