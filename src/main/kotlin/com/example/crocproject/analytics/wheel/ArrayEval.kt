@@ -46,6 +46,6 @@ class ArrayEval(
 
     companion object {
         const val WEIGHT_BUDGET = 3
-        const val WEIGHT_NUMBER = 80
+        const val WEIGHT_NUMBER = 10
     }
 }
