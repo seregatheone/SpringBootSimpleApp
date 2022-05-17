@@ -23,11 +23,9 @@ class LoyalAnalyticsWheel : WheelAnalyticsClass() {
 
         val computationDiscounts = generateDiscsInt(arrStart,discounts)
 
-        while(calculateCost(computationDiscounts,price) < budget && tickets>sum(computationDiscounts.values.map{it.toDouble()})){
-            println(computationDiscounts)
+        while(calculateCost(computationDiscounts,price) < budget && tickets >sum(computationDiscounts.values.map{it.toDouble()})){
             computationDiscounts.merge(discounts.minOf { it },1,Int::plus)
         }
-        computationDiscounts.merge(discounts.minOf { it },1,Int::minus)
         return computationDiscounts
     }
 }
